@@ -70,7 +70,7 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
     ofSetColor(225);
-    iter-=.5;
+    iter-=.1; //speed of moving
     int l_x = 40;
 //
     for (int i=0; i<S.sLetter.size(); i++){
@@ -93,8 +93,9 @@ void testApp::draw(){
         }
     }
     
-    x=40+iter;  //comment out to stop moving
-    //x=40;
+    //DRAWING THE MAIN TEXT
+    x=40;    
+   // x=40;
     
     for (int i=0; i<S.sLetter.size(); i++){
         if (i==myT) {
@@ -105,18 +106,64 @@ void testApp::draw(){
             ofSetColor(225);
             
         }
-
-        sWidth=franklinBook64.stringWidth(S.sLetter[i]);
-        franklinBook64.drawString(S.sLetter[i], x, centerY);
-        rect.push_back(franklinBook64.getStringBoundingBox(S.sLetter[i], x+sWidth, centerY));
-
-        //hack to keep spacing nice...
         if (S.sLetter[i]==" ") {
             x += (sWidth+10);
         }
         else{
             x += (sWidth+8);
         }
+
+        sWidth=franklinBook64.stringWidth(S.sLetter[i]);
+        
+        ofPushMatrix();
+        ofTranslate(x+iter, 0);
+        franklinBook64.drawString(S.sLetter[i], 0, centerY);
+        //franklinBook64.drawString(S.sLetter[i], x, centerY);
+
+        //if not MOVING
+        //rect.push_back(franklinBook64.getStringBoundingBox(S.sLetter[i], x+sWidth, centerY));
+        rect.push_back(franklinBook64.getStringBoundingBox(S.sLetter[i], sWidth, centerY));
+
+        //if MOVING
+        //rect.push_back(franklinBook64.getStringBoundingBox(S.sLetter[i], x+sWidth+iter, centerY));
+
+        ofNoFill();
+        ofSetHexColor(0xCCCCCC);
+
+        ofRect(rect[i].x-rect[i].width, rect[i].y, rect[i].width, rect[i].height);
+        
+        //probably need to make an iterator
+        
+//        vector <Particle>::iterator iter = particles.begin();
+//        while (iter != particles.end()) {
+//            iter->update();
+//            ofVec2f center_w = ofVec2f(centerX, centerY);
+//            if(iter->getPosition().x>740 || iter->getPosition().x<0 || iter->getPosition().y>1024 || iter->getPosition().y<0) {
+//                iter->dead=true;
+//            }
+//            if(iter->dead) {
+//                printf("\n\nDEAD\n\n");
+//                iter->destroy();
+//                particles.erase(iter);
+//            }
+//            
+//            else ++iter;
+//        }
+//        vector <int>::iterator iter = xArray.begin();
+//        while (iter != xArray.end()) {
+            
+        for (int i=0; i<S.sLetter.size(); i++){
+       //xArray[i]=rect[i].x;
+            xArray[i]=2;
+
+        }
+        
+        //if MOVING
+        //ofRect((rect[i].x-rect[i].width)+iter, rect[i].y, rect[i].width, rect[i].height);
+        ofPopMatrix();
+
+        //hack to keep spacing nice...
+        
         
     }
 
@@ -125,10 +172,11 @@ void testApp::draw(){
      string info = "";
      //info += "FPS: "+ofToString(ofGetFrameRate(), 1)+"\n";
     info += "S.sLetter.size(): "+ofToString(S.sLetter.size())+"\n";
-    //info += "X: "+ofToString(x)+"\n";
-    info+= "rect[0].x: "+ofToString(rect[0].x)+"\n";
-    info+= "rect[0].y: "+ofToString(rect[0].y)+"\n";
+    info += "X: "+ofToString(x)+"\n";
+    info+= "rect[0].x: "+ofToString(rect[3].x+iter)+"\n";
+    //info+= "rect[0].y: "+ofToString(rect[0].y)+"\n";
     info+= "rect[0].width: "+ofToString(rect[0].width)+"\n";
+    info+= "touch.x: " + ofToString(touchX) +"\n";
     info+= "touched? "+ofToString(myT)+"\n";
 
      ofSetHexColor(0x444342);
@@ -148,8 +196,11 @@ void testApp::touchDown(ofTouchEventArgs &touch){
     //gotta fix this so that each of the rects registers a touch
     for (int i=0; i<S.sLetter.size(); i++){
         //for (int i=0; i<1; i++){
+       // touchX = touch.x+iter;
+        touchX = touch.x;
+//        if ((touch.x-48 <= rect[i].x+rect[i].width&& touch.x-48>=rect[i].x)&&(touch.y>=rect[i].y&&touch.y<=rect[i].y+rect[i].height)){
+            if ((touch.x-xArray[i]+iter >= rect[i].x-rect[i].width && touch.x-xArray[i]+iter<=rect[i].x)&&(touch.y>=rect[i].y&&touch.y<=rect[i].y+rect[i].height)){
 
-        if ((touch.x>=rect[i].x-rect[i].width&&touch.x<=rect[i].x)&&(touch.y>=rect[i].y&&touch.y<=rect[i].y+rect[i].height)){
             t=true;
             myT = i;
             break;

@@ -42,6 +42,9 @@ public:
     //vector <string>  s;
 
     vector <ofRectangle> rect;
+    
+    ofRectangle charRect;
+    float touchX;
 	char _c;
     float sWidth;
     int myT;
@@ -49,6 +52,7 @@ public:
     vector<int> tNums;
     float iter;
     int x;
+    vector <float> xArray;
 //	ofPoint touchPt;
 //	ofPoint drag;
 //	bool bDragging;
