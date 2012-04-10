@@ -16,49 +16,50 @@ void testApp::setup(){
 	iPhoneSetOrientation(OFXIPHONE_ORIENTATION_LANDSCAPE_RIGHT);
 	
 	ofBackground(0,0,0);
+    //ofSetRectMode(OF_RECTMODE_CORNER);
     
     centerX = ofGetWidth()/2.0;
     centerY = ofGetHeight()/2.0;
 
-    
-    franklinBook64.loadFont("frabk.ttf", 64);
-	franklinBook64.setLineHeight(28.0f);
-	franklinBook64.setLetterSpacing(1.037);
-
-    
-    franklinBook14.loadFont("frabk.ttf", 14);
-	franklinBook14.setLineHeight(28.0f);
-	franklinBook14.setLetterSpacing(1.037);
-
     typeStr = "It was not such an awful voice";
     
-    //Sentence S(typeStr, 50, centerY);
-    
-    //Sentence s;
+    x = 10;
+
     for (int i=0; i<typeStr.length(); i++){
-        string my_L;
+       string my_L;
         my_L.push_back(typeStr[i]);
 
-        S.sLetter.push_back(my_L);
-        //s.letter.push_back(my_L);
+        Letter l = *new Letter(x,150,my_L,64);
 
-        
-//        _c=typeStr[i];
-//       // letters[i]=_c;
-//       // letters[i] = new Letter(centerX,centerY,typeStr.charAt(i)); 
+        letters.push_back(l);
+
+        if (my_L == " ") {
+            x+=32;
+        }else{
+            x += letters[i].menlo14.stringWidth(my_L)+4;
+
+        }
     }
-//    
-//    for (int i=0; i<S.letters.size(); i++) {
-//        string my_L;
-//        my_L.push_back(S.letters[i]);
-//        S.sLetter.push_back(my_L);
-//    }
-//    int x = 50;
-//    for (int i = 0; i < typeStr.length(); i++) {
-//        s[i] = new Sentence(x,centerY,typeStr.at(i)); 
-//        x += textWidth(typeStr.at(i));
-//    }
-    x = 40;
+    
+    //reset x
+    x=10;
+        //radar view
+        for (int i=0; i<typeStr.length(); i++){
+            string my_L2;
+            my_L2.push_back(typeStr[i]);
+            
+            Letter l2 = *new Letter(x,300,my_L2,14);
+            
+            letters2.push_back(l2);
+            
+            if (my_L2 == " ") {
+                x+=6;
+            }else{
+                x += letters2[i].menlo14.stringWidth(my_L2)+2;
+            }
+        }
+
+
     iter = 0;
 }
 
@@ -69,52 +70,21 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    
+    
     ofSetColor(225);
     iter-=.1; //speed of moving
-    int l_x = 40;
 //
-    for (int i=0; i<S.sLetter.size(); i++){
-        if (i==myT) {
-            tNums.push_back(i);
-            ofSetColor(225,0,0);
-        }else{
-            ofSetColor(225);
+    for (int i=0; i<letters.size(); i++){
+       
+        ofSetColor(225,0);
+        letters[i].draw();
+        letters2[i].draw();
 
-        }
-        sWidth=franklinBook14.stringWidth(S.sLetter[i]);
-        franklinBook14.drawString(S.sLetter[i], l_x, 280);
-        
-//      hack to keep spacing nice...
-        if (S.sLetter[i]==" ") {
-           l_x += (sWidth+5);
-        }
-        else{
-            l_x += (sWidth+3);
-        }
     }
     
-    //DRAWING THE MAIN TEXT
-    x=40;    
-   // x=40;
-    
-    for (int i=0; i<S.sLetter.size(); i++){
-        if (i==myT) {
-            tNums.push_back(i);
-            //S.sLetter[i].color = 100;
-            ofSetColor(225,0,0);
-        }else{
-            ofSetColor(225);
-            
-        }
-        if (S.sLetter[i]==" ") {
-            x += (sWidth+10);
-        }
-        else{
-            x += (sWidth+8);
-        }
-
-        sWidth=franklinBook64.stringWidth(S.sLetter[i]);
-        
+    //ofRect(letters[0].myRect.x, letters[0].myRect.y, letters[0].myRect.width, letters[0].myRect.height);
+/*        
         ofPushMatrix();
         ofTranslate(x+iter, 0);
         franklinBook64.drawString(S.sLetter[i], 0, centerY);
@@ -167,22 +137,27 @@ void testApp::draw(){
         
     }
 
+*/
     //DRAW A CIRCLE, THEN A LINE TO THE LAST CIRCLE -- PUT IN TOUCHDOWN AND TOUCHUP, COLOR SPAN IN THE SENTENCES
 
      string info = "";
      //info += "FPS: "+ofToString(ofGetFrameRate(), 1)+"\n";
-    info += "S.sLetter.size(): "+ofToString(S.sLetter.size())+"\n";
-    info += "X: "+ofToString(x)+"\n";
-    info+= "rect[0].x: "+ofToString(rect[3].x+iter)+"\n";
+//    info += "S.sLetter.size(): "+ofToString(S.sLetter.size())+"\n";
+//    info += "X: "+ofToString(x)+"\n";
+//    info+= "rect[0].x: "+ofToString(rect[3].x+iter)+"\n";
     //info+= "rect[0].y: "+ofToString(rect[0].y)+"\n";
-    info+= "rect[0].width: "+ofToString(rect[0].width)+"\n";
-    info+= "touch.x: " + ofToString(touchX) +"\n";
-    info+= "touched? "+ofToString(myT)+"\n";
-
+//    info+= "rect[0].width: "+ofToString(rect[0].width)+"\n";
+//    info+= "touch.x: " + ofToString(touchX) +"\n";
+//    info+= "touched? "+ofToString(myT)+"\n";
+   //info+= "STRINGWIDTH? "+ofToString(menlo14.stringWidth(&typeStr[0]))+"\n";
+    //info+= "bounding? "+ofToString(menlo14.getStringBoundingBox(&typeStr[0], 0, 0).width)+"\n";
+    info+= "myt "+ofToString(myT)+"\n";
+info+= "thisRect.x "+ofToString(letters[0].rect[0].x)+"\n";
+    info+="lWords.size(): "+ofToString(lWords.size())+"\n";
      ofSetHexColor(0x444342);
      ofDrawBitmapString(info, 30, 30);
-    
-	
+ 
+
 }
 
 //--------------------------------------------------------------
@@ -192,22 +167,14 @@ void testApp::exit(){
 
 //--------------------------------------------------------------
 void testApp::touchDown(ofTouchEventArgs &touch){
+    
+    
     t=true;
-    //gotta fix this so that each of the rects registers a touch
-    for (int i=0; i<S.sLetter.size(); i++){
-        //for (int i=0; i<1; i++){
-       // touchX = touch.x+iter;
-        touchX = touch.x;
-//        if ((touch.x-48 <= rect[i].x+rect[i].width&& touch.x-48>=rect[i].x)&&(touch.y>=rect[i].y&&touch.y<=rect[i].y+rect[i].height)){
-            if ((touch.x-xArray[i]+iter >= rect[i].x-rect[i].width && touch.x-xArray[i]+iter<=rect[i].x)&&(touch.y>=rect[i].y&&touch.y<=rect[i].y+rect[i].height)){
-
-            t=true;
+    for (int i=0; i<letters.size(); i++){
+        if (letters[i].inside(touch.x, touch.y)==true) {
             myT = i;
-            break;
-
-        }
-        else{
-            myT=-1;
+            //lWords.push_back(i);
+            checkWords(i);
         }
     }
 
@@ -251,6 +218,21 @@ void testApp::deviceOrientationChanged(int newOrientation){
 
 //--------------------------------------------------------------
 void testApp::touchCancelled(ofTouchEventArgs& args){
+
+}
+
+void testApp::checkWords(int w){
+    
+    //for(int i=0; i<lWords.size(); i++){
+        //if (lWords.size()>=4) {
+    if (letters[w].highlight_type==2){
+
+            letters[w].highlight_type=0;
+            letters2[w].highlight_type=0;
+
+    }else
+        letters[w].highlight_type = 2;
+        letters2[w].highlight_type = 2;
 
 }
 

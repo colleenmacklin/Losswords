@@ -14,7 +14,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "34"
          endingLineNumber = "34"
-         landmarkName = "class Sentence"
+         landmarkName = "class Letter"
          landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
@@ -28,21 +28,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "32"
          endingLineNumber = "32"
-         landmarkName = "Sentence::move()"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "src/testApp.mm"
-         timestampString = "353606722.991334"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "35"
-         endingLineNumber = "35"
-         landmarkName = "testApp::setup()"
+         landmarkName = "Letter::move()"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

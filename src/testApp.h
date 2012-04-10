@@ -3,7 +3,8 @@
 #include "ofMain.h"
 #include "ofxiPhone.h"
 #include "ofxiPhoneExtras.h"
-#include "Sentence.h"
+#include "Letter.h"
+#include "Scrollbar.h"
 
 class testApp : public ofxiPhoneApp {
 	
@@ -23,25 +24,29 @@ public:
 	void gotFocus();
 	void gotMemoryWarning();
 	void deviceOrientationChanged(int newOrientation);
+    void checkWords(int w);
     
     int centerX;
     int centerY;
     
     string typeStr;
-	
-	ofTrueTypeFont  franklinBook64;
-    ofTrueTypeFont  franklinBook14;
+	//Scrollbar HScrollbar;
+    
+	//ofTrueTypeFont  menlo64;
+    //ofTrueTypeFont  menlo14;
 
     ofPoint p;
-    Sentence S;
+    //Letter L;
     //vector<char>  letters;
     //vector<ofTTFCharacter> ofTrueTypeFont::getStringAsPoints(string str){
     vector<ofTTFCharacter> chars;
     vector<ofPoint> pts;
-    vector<Sentence>  s;
-    //vector <string>  s;
+    vector<Letter>  letters;
+    vector<Letter>  letters2;
 
-    vector <ofRectangle> rect;
+    //vector <string>  s;
+    vector<int> lWords;
+    vector <ofRectangle> rects;
     
     ofRectangle charRect;
     float touchX;
