@@ -38,7 +38,6 @@ void Letter::draw()
     ofSetColor(color);
     
     menlo14.drawString(letter, x, y);
-    //menlo14.drawString("hello", 10, 150);
     
     rect.push_back(menlo14.getStringBoundingBox(letter, x, y));
     myRect = menlo14.getStringBoundingBox(letter, x, y);

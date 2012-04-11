@@ -30,7 +30,7 @@ public:
     int centerY;
     
     string typeStr;
-	//Scrollbar HScrollbar;
+	Scrollbar* hScrollbar;
     
 	//ofTrueTypeFont  menlo64;
     //ofTrueTypeFont  menlo14;
@@ -58,6 +58,9 @@ public:
     float iter;
     int x;
     vector <float> xArray;
+    
+    int width;
+    
 //	ofPoint touchPt;
 //	ofPoint drag;
 //	bool bDragging;

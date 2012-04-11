@@ -20,6 +20,9 @@ void testApp::setup(){
     
     centerX = ofGetWidth()/2.0;
     centerY = ofGetHeight()/2.0;
+    
+    hScrollbar = new Scrollbar(10, 292, 360, 20, 3*5+1);
+
 
     typeStr = "It was not such an awful voice";
     
@@ -73,6 +76,9 @@ void testApp::draw(){
     
     
     ofSetColor(225);
+    
+    float topPos = hScrollbar->getPos()-width/2;
+
     iter-=.1; //speed of moving
 //
     for (int i=0; i<letters.size(); i++){
@@ -80,8 +86,20 @@ void testApp::draw(){
         ofSetColor(225,0);
         letters[i].draw();
         letters2[i].draw();
+        letters[i].x=letters[i].homex-topPos*2;
 
     }
+    
+    
+    // Get the position of the top scrollbar
+    // and convert to a value to display the top image 
+    hScrollbar->update();
+    hScrollbar->draw();
+
+    
+//    ofFill(255);
+//    letters[i](top, width/2-topWidth/2 + topPos*2, 0);
+
     
     //ofRect(letters[0].myRect.x, letters[0].myRect.y, letters[0].myRect.width, letters[0].myRect.height);
 /*        
@@ -168,14 +186,23 @@ void testApp::exit(){
 //--------------------------------------------------------------
 void testApp::touchDown(ofTouchEventArgs &touch){
     
-    
-    t=true;
+    t=false;
+
+
     for (int i=0; i<letters.size(); i++){
         if (letters[i].inside(touch.x, touch.y)==true) {
+            t=true;
+
             myT = i;
             //lWords.push_back(i);
             checkWords(i);
         }
+    }
+    
+    if(!t){
+    hScrollbar->pressed = true;
+    hScrollbar->touchX = touch.x;
+    hScrollbar->touchY = touch.y;
     }
 
 }

@@ -18,8 +18,7 @@ class Letter {
     
 public:
     
-    //    ofTrueTypeFont  menlo64;
-        ofTrueTypeFont  menlo14;
+    ofTrueTypeFont  menlo14;
     Letter(float x, float y, string letter, int typeSize);
     
     string letter;
@@ -46,7 +45,9 @@ public:
     void home();
     bool inside(float x, float y);
     void highlight(int type);
-    private:
+    
+
+private:
     
     
     
