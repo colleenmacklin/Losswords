@@ -79,7 +79,7 @@ void testApp::draw(){
     
     float topPos = hScrollbar->getPos()-width/2;
 
-    iter-=.1; //speed of moving
+    iter-=.5; //speed of moving
 //
     for (int i=0; i<letters.size(); i++){
        
@@ -87,9 +87,12 @@ void testApp::draw(){
         letters[i].draw();
         letters2[i].draw();
         letters[i].x=letters[i].homex-topPos*2;
-
+        if (tt==true) {
+            letters[i].x+=iter;
+        }
     }
-    
+//    ofFill();
+//    ofRect(5, 200, 60, 30);
     
     // Get the position of the top scrollbar
     // and convert to a value to display the top image 
@@ -219,6 +222,7 @@ void testApp::touchUp(ofTouchEventArgs &touch){
 
 //--------------------------------------------------------------
 void testApp::touchDoubleTap(ofTouchEventArgs &touch){
+    tt=true;
 
 }
 

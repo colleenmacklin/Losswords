@@ -28,7 +28,7 @@ public:
     
     int centerX;
     int centerY;
-    
+    bool tt;
     string typeStr;
 	Scrollbar* hScrollbar;
     
